@@ -9,6 +9,9 @@ const newTodo = ({ title, desc }) => ({
   setPriority(newPriority) {
     this.priority = newPriority;
   },
+  setLabel(newLabel) {
+    this.priority = newLabel;
+  },
 });
 
 export default newTodo;

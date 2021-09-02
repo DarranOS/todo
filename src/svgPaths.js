@@ -1,4 +1,4 @@
-const paths = (function () {
+const svgPaths = (function () {
   const homeCoords =
     "M8.007,0L0,7.688V16h5.56v-5.049h4.92V16H16V7.688L8.007,0z M15.2,15.094h-3.898v-5.053H4.754v5.053H0.8 V8.187l7.207-6.905L15.2,8.187V15.094L15.2,15.094z";
 
@@ -76,4 +76,4 @@ const paths = (function () {
   };
 })();
 
-export default paths;
+export default svgPaths;

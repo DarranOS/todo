@@ -1,11 +1,12 @@
+import upcomingCalendar from "./upcoming-calendar";
+import upcomingDays from "./upcoming-days";
+
 const createMainView = () => {
   const mainView = document.createElement("div");
   mainView.classList.add("mainview");
 
-  const mainText = document.createElement("p");
-  mainText.textContent = "HHHEYYYEYYEYEYYE";
-  mainView.appendChild(mainText);
-
+  mainView.appendChild(upcomingCalendar());
+  mainView.appendChild(upcomingDays());
   return mainView;
 };
 

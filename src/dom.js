@@ -7,6 +7,11 @@ const display = (function () {
   container.classList.add("body");
 
   container.appendChild(createHeader());
-  container.appendChild(createSidebar());
-  container.appendChild(createMainView());
+
+  const appHolder = document.createElement("myApp");
+  appHolder.classList.add("appHolder");
+  appHolder.appendChild(createSidebar());
+  appHolder.appendChild(createMainView());
+
+  container.appendChild(appHolder);
 })();

@@ -5,7 +5,7 @@ import filters from "./filters";
 
 //__SVG Generators: Path info is passed to createSVG.js which returns an SVG object
 import { default as createSVG, createCircleSVG } from "./create-svg";
-import paths from "./paths";
+import svgPaths from "./svgPaths";
 import { default as randomColor, randomPastel } from "./random-color";
 
 const createSidebar = () => {
@@ -14,7 +14,7 @@ const createSidebar = () => {
 
   const inboxDiv = document.createElement("div");
   inboxDiv.classList.add("side-div");
-  const inboxIcon = createSVG(16, 16, paths.inbox());
+  const inboxIcon = createSVG(16, 16, svgPaths.inbox());
   inboxIcon.classList.add("inbox-filter");
   inboxDiv.appendChild(inboxIcon);
   const inboxText = document.createElement("p");
@@ -23,7 +23,7 @@ const createSidebar = () => {
 
   const todayDiv = document.createElement("div");
   todayDiv.classList.add("side-div");
-  const todayIcon = createSVG(16, 16, paths.today(), format(new Date(), "d"));
+  const todayIcon = createSVG(16, 16, svgPaths.today(), format(new Date(), "d"));
   todayIcon.classList.add("today-filter");
   todayDiv.appendChild(todayIcon);
   const todayText = document.createElement("p");
@@ -32,7 +32,7 @@ const createSidebar = () => {
 
   const upcomingDiv = document.createElement("div");
   upcomingDiv.classList.add("side-div");
-  const upcomingIcon = createSVG(16, 16, paths.calendar());
+  const upcomingIcon = createSVG(16, 16, svgPaths.calendar());
   upcomingIcon.classList.add("upcoming-filter");
   upcomingDiv.appendChild(upcomingIcon);
   const upcomingText = document.createElement("p");
@@ -44,7 +44,7 @@ const createSidebar = () => {
   const projectsHeadingDiv = document.createElement("button");
   projectsHeadingDiv.classList.add("side-div");
 
-  const projectsIcon = createSVG(16, 16, paths.arrow());
+  const projectsIcon = createSVG(16, 16, svgPaths.arrow());
   projectsIcon.classList.add("project-arrow");
   projectsHeadingDiv.appendChild(projectsIcon);
   const projectsText = document.createElement("p");
@@ -68,7 +68,7 @@ const createSidebar = () => {
   const labelsDiv = document.createElement("button");
   labelsDiv.classList.add("side-div");
 
-  const labelsIcon = createSVG(16, 16, paths.arrow());
+  const labelsIcon = createSVG(16, 16, svgPaths.arrow());
   labelsIcon.classList.add("labels-arrow");
   labelsDiv.appendChild(labelsIcon);
   const labelsText = document.createElement("p");
@@ -92,7 +92,7 @@ const createSidebar = () => {
   const filtersDiv = document.createElement("button");
   filtersDiv.classList.add("side-div");
 
-  const filtersIcon = createSVG(16, 16, paths.arrow());
+  const filtersIcon = createSVG(16, 16, svgPaths.arrow());
   filtersIcon.classList.add("filters-arrow");
   filtersDiv.appendChild(filtersIcon);
   const filtersText = document.createElement("p");
@@ -143,7 +143,7 @@ const displayLabels = () => {
   labels.forEach((label) => {
     let labelDiv = document.createElement("div");
     labelDiv.classList.add("side-div");
-    const labelIcon = createSVG(16, 16, paths.tag());
+    const labelIcon = createSVG(16, 16, svgPaths.tag());
     labelIcon.classList.add("label-icon");
 
     labelDiv.appendChild(labelIcon);
@@ -161,7 +161,7 @@ const displayFilters = () => {
     let filterDiv = document.createElement("div");
     filterDiv.classList.add("side-div");
 
-    const filterIcon = createSVG(16, 16, paths.drop());
+    const filterIcon = createSVG(16, 16, svgPaths.drop());
     filterIcon.classList.add("filter-icon");
     filterDiv.appendChild(filterIcon);
     let filterText = document.createElement("p");

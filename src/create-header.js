@@ -1,6 +1,6 @@
 //__SVG Generators: Path info is passed to createSVG.js which returns an SVG object
 import { default as createSVG, createCircleSVG } from "./create-svg";
-import paths from "./paths";
+import svgPaths from "./svgPaths";
 import { default as randomColor, randomPastel } from "./random-color";
 
 const createHeader = () => {
@@ -39,7 +39,7 @@ const createHeader = () => {
   searchF.classList.add("search-f");
   searchF.textContent = "f";
 
-  const searchIcon = createSVG(20, 20, paths.search());
+  const searchIcon = createSVG(20, 20, svgPaths.search());
   searchIcon.classList.add("search-button");
 
   // Creates Right side topBar tray buttons
@@ -53,10 +53,10 @@ const createHeader = () => {
 
   // Draws and appends SVGS
   searchButton.appendChild(searchIcon);
-  menuButton.appendChild(createSVG(16, 16, paths.menu()));
-  homeButton.appendChild(createSVG(16, 16, paths.home()));
-  bellButton.appendChild(createSVG(16, 16, paths.bell()));
-  plusButton.appendChild(createSVG(16, 16, paths.plus()));
+  menuButton.appendChild(createSVG(16, 16, svgPaths.menu()));
+  homeButton.appendChild(createSVG(16, 16, svgPaths.home()));
+  bellButton.appendChild(createSVG(16, 16, svgPaths.bell()));
+  plusButton.appendChild(createSVG(16, 16, svgPaths.plus()));
 
   searchButton.appendChild(searchInput);
   searchButton.appendChild(searchF);

@@ -173,12 +173,21 @@
   transform: scale(80%);
 }
 
+/*------------App Holder -----------*/
+
+.appHolder {
+  height: calc(100vh - 44px);
+  display: flex;
+  flex-direction: row;
+}
+
 /*------------Sidebar -----------*/
 
 .sidebar {
-  grid-area: sidebar;
+  /* display: flex;
+  flex-direction: row; */
   background-color: #fafafa;
-  height: 95vh;
+  height: 100%;
   width: 305px;
   padding-top: 30px;
   padding-left: 35px;
@@ -229,10 +238,131 @@
   transition: transform 0.3s ease;
 }
 
+/*------------Mainview -----------*/
+
 .mainview {
-  grid-area: mainview;
-  background-color: white;
-  margin: 1vh 0.5vw 1vh 0.5vw;
-  padding: 2vh 1vw 2vh 1vw;
+  display: flex;
+  flex-direction: column;
+  /* margin: 1vh 0.5vw 1vh 0.5vw; */
+  width: 100%;
+  /* padding: 2vh 1vw 2vh 1vw; */
   border-radius: 0.25%;
+}
+
+/*------------Upcoming -----------*/
+
+#upcoming {
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  width: 100%;
+}
+
+#calendar-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* position: sticky; */
+  top: 0;
+  z-index: 2;
+  flex-shrink: 0;
+  padding-top: 36px;
+  padding-left: 55px;
+  padding-right: 55px;
+  width: 100%;
+  max-width: 800px;
+}
+
+#date-selector {
+  align-items: center;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.date-selector-left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.date-selector-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.date-selector-right button {
+  background-color: transparent;
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: 8px;
+  line-height: 26px;
+  height: 26px;
+  overflow: hidden;
+}
+
+.month-picker {
+  font-size: 20px;
+  font-weight: 600;
+  outline: none !important;
+  color: #202020;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.day-text {
+  font-weight: 400;
+  font-size: 12px;
+  color: grey;
+  height: 16px;
+  line-height: 16px;
+}
+
+/* .daily-buttons {
+  background-color: hotpink;
+} */
+
+.upcoming-day-button {
+  padding: 20px;
+  margin: 20px;
+  background-color: #fff;
+}
+
+.upcoming-buttons-left-arrow {
+  transform: rotate(90deg);
+}
+
+.upcoming-buttons-right-arrow {
+  transform: rotate(-90deg);
+}
+
+#day1,
+#day2 {
+  color: crimson;
+  border-bottom: 1px solid blue;
+}
+
+#day3 {
+  color: lawngreen;
+  border-bottom: 3px solid red;
+}
+
+#upcoming-days {
+  display: flex;
+  flex-direction: column;
+  min-height: 10000px;
+  overflow: hidden;
+}
+
+.upcoming-daily-planner {
+  width: 100%;
+  margin: 5px;
+  padding: 5px;
 }
