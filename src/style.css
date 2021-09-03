@@ -433,7 +433,7 @@
 
 .upcoming-date-slot {
   width: 100%;
-  padding-top: 30px;
+  padding-top: 40px;
 }
 
 /* .upcoming-date-div {
@@ -455,11 +455,106 @@
 
 .upcoming-task-div {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+  flex-direction: column;
   padding-top: 5px;
   justify-items: center;
   align-items: center;
+}
+
+/*------------Upcoming Infinite Scroll Section - Due Task -----------*/
+.due-task-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.due-task-left-div {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.due-task-left-top-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow: hidden;
+}
+
+.due-task-left-text-div {
+  cursor: pointer;
+  color: #202020;
+  font-size: 14px;
+  line-height: 21px;
+  padding-left: 6px;
+}
+
+.due-task-left-icon-div {
+  width: 16px;
+}
+
+.due-task-left-icon {
+  stroke: purple;
+}
+
+.due-task-left-middle-div {
+  justify-content: flex-start;
+  padding-left: 22px;
+}
+
+.due-task-left-middle-div p {
+  font-size: 12px;
+  overflow: hidden;
+  color: grey;
+  cursor: pointer;
+}
+
+.due-task-left-bottom-div {
+  max-width: 136px;
+  padding-left: 22px;
+  justify-content: flex-start;
+}
+
+.due-task-left-bottom-div p {
+  font-size: 12px;
+  overflow: hidden;
+  color: grey;
+  cursor: pointer;
+}
+
+.due-task-right-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.due-task-right-top-div {
+  background-color: transparent;
+}
+
+.due-task-right-bottom-div {
+  background-color: transparent;
+}
+
+.due-task-right-bottom-div p {
+  font-size: 12px;
+  overflow: hidden;
+  color: grey;
+  cursor: pointer;
+}
+
+/*------------Upcoming Infinite Scroll Section - Add Task -----------*/
+
+.add-task-div {
+  display: flex;
+  flex-direction: row;
+  padding-top: 5px;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
 }
 
 .add-new-task-button {

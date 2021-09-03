@@ -85,7 +85,6 @@ const upcomingCalendar = () => {
 
     while (i < 5) {
       dateModifer.days = i;
-      console.log(dateModifer.days);
 
       const mainviewDay = document.createElement("button");
       mainviewDay.classList.add("upcoming-day-button");
