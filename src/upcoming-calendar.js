@@ -24,6 +24,7 @@ const upcomingCalendar = () => {
   monthPicker.classList.add("month-picker");
   monthPicker.textContent = "September 2021";
   const monthPickerIcon = createSVG(16, 16, svgPaths.arrow());
+  monthPickerIcon.classList.add("month-picker-icon");
 
   // TODO Add calender function
 
@@ -31,20 +32,31 @@ const upcomingCalendar = () => {
     console.log("Pick Date");
   });
 
-  const todayButton = document.createElement("button");
-  todayButton.textContent = "Today";
+  const weekNavButtonsDiv = document.createElement("div");
+  weekNavButtonsDiv.classList.add("week-nav-div");
 
   const lastWeekButton = document.createElement("button");
-  lastWeekButton.classList.add("upcoming-buttons");
+  lastWeekButton.classList.add("week-nav-buttons");
+  lastWeekButton.classList.add("week-nav-button-left");
   const lastWeekButtonIcon = createSVG(16, 16, svgPaths.arrow());
-  lastWeekButtonIcon.classList.add("upcoming-buttons-left-arrow");
-  lastWeekButton.append(lastWeekButtonIcon);
+  lastWeekButtonIcon.classList.add("week-nav-buttons-left-arrow");
+  lastWeekButton.appendChild(lastWeekButtonIcon);
 
   const nextWeekButton = document.createElement("button");
-  nextWeekButton.classList.add("upcoming-buttons");
+  nextWeekButton.classList.add("week-nav-buttons");
   const nextWeekButtonIcon = createSVG(16, 16, svgPaths.arrow());
-  nextWeekButtonIcon.classList.add("upcoming-buttons-right-arrow");
-  nextWeekButton.append(nextWeekButtonIcon);
+  nextWeekButtonIcon.classList.add("week-nav-buttons-right-arrow");
+  nextWeekButton.appendChild(nextWeekButtonIcon);
+
+  weekNavButtonsDiv.appendChild(lastWeekButton);
+  weekNavButtonsDiv.appendChild(nextWeekButton);
+
+  const todayButtonDiv = document.createElement("div");
+  todayButtonDiv.classList.add("today-button-div");
+  const todayButton = document.createElement("button");
+  todayButton.textContent = "Today";
+  todayButton.classList.add("today-button");
+  todayButtonDiv.appendChild(todayButton);
 
   // TODO Add calender function
 
@@ -95,9 +107,8 @@ const upcomingCalendar = () => {
   dateSelectorLeft.appendChild(monthPicker);
   dateSelectorLeft.appendChild(monthPickerIcon);
 
-  dateSelectorRight.appendChild(lastWeekButton);
-  dateSelectorRight.appendChild(nextWeekButton);
-  dateSelectorRight.appendChild(todayButton);
+  dateSelectorRight.appendChild(weekNavButtonsDiv);
+  dateSelectorRight.appendChild(todayButtonDiv);
 
   dateSelector.appendChild(dateSelectorLeft);
   dateSelector.appendChild(dateSelectorRight);

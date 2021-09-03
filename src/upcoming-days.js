@@ -4,6 +4,8 @@ import svgPaths from "./svgPaths";
 import todoList from "./task-store";
 
 const upcomingDaysDiv = document.createElement("div");
+const todaysDate = new Date();
+const dateFormat = "MMM d";
 
 const dateModifier = {
   years: 0,
@@ -16,17 +18,11 @@ const dateModifier = {
 };
 
 const upcomingDays = () => {
-  upcomingDaysDiv.setAttribute("id", "upcoming-days");
-  upcomingDaysDiv.classList.add("upcoming-days");
+  upcomingDaysDiv.setAttribute("id", "upcoming-wrapper");
+  upcomingDaysDiv.classList.add("upcoming-wrapper");
 
-  const deadlines = todoList.map((n) => {
-    return {
-      title: n.title,
-      priority: n.priority,
-    };
-  });
-
-  deadlines.map((n) => createDailyEntry(n));
+  createTodaySlot();
+  createTomorrowSlot();
   createDailySlots();
 
   window.addEventListener("scroll", scrollDailySlots);
@@ -45,54 +41,79 @@ const createDailyEntry = (n) => {
   upcomingDaysDiv.appendChild(dailyPlannerDiv);
 };
 
-// TODO Create scrolling slots
-const createDailySlots = () => {
-  const todaySlotsDiv = document.createElement("div");
-  todaySlotsDiv.classList.add("upcoming-daily-planner");
-  const todaySlotTitle = document.createElement("p");
-  todaySlotTitle.classList.add("upcoming-daily-title");
-  todaySlotTitle.textContent = format(new Date(), "MMM d") + " • Today";
-  dateModifier.days += 1;
-  todaySlotsDiv.appendChild(todaySlotTitle);
+const createTodaySlot = () => {
+  const todaySlotsDiv = createEmptySlot("Today", todaysDate);
   upcomingDaysDiv.appendChild(todaySlotsDiv);
+};
 
-  const tomorrowSlotsDiv = document.createElement("div");
-  tomorrowSlotsDiv.classList.add("upcoming-daily-planner");
-  const tomorrowSlotTitle = document.createElement("p");
-  tomorrowSlotTitle.classList.add("upcoming-daily-title");
-  tomorrowSlotTitle.textContent =
-    format(add(new Date(), dateModifier), "MMM d") + " • Tomorrow";
-  dateModifier.days += 1;
-  tomorrowSlotsDiv.appendChild(tomorrowSlotTitle);
+const createTomorrowSlot = () => {
+  const tomorrowSlotsDiv = createEmptySlot("Tomorrow", add(todaysDate, dateModifier));
   upcomingDaysDiv.appendChild(tomorrowSlotsDiv);
+};
 
+const createDailySlots = () => {
   while (dateModifier.days < 7) {
-    const dailySlotsDiv = document.createElement("div");
-    dailySlotsDiv.classList.add("upcoming-daily-planner");
-    const dailySlotTitle = document.createElement("p");
-    dailySlotTitle.classList.add("upcoming-daily-title");
     console.log(dateModifier.days);
-    dailySlotTitle.textContent =
-      format(add(new Date(), dateModifier), "MMM d") +
-      " • " +
-      format(add(new Date(), dateModifier), "eeee");
-    dateModifier.days += 1;
-    dailySlotsDiv.appendChild(dailySlotTitle);
+    const dailySlotsDiv = createEmptySlot(todaysDate, add(todaysDate, dateModifier));
     upcomingDaysDiv.appendChild(dailySlotsDiv);
   }
+};
+
+const createEmptySlot = (title, date) => {
+  const upcomingDateSlot = document.createElement("div");
+  upcomingDateSlot.classList.add("upcoming-date-slot");
+  upcomingDateSlot.setAttribute("id", "div_" + format(date, "P"));
+
+  const upcomingDateDiv = document.createElement("div");
+  upcomingDateDiv.classList.add("upcoming-date-div");
+
+  const upcomingDateTitle = document.createElement("p");
+  upcomingDateTitle.classList.add("upcoming-daily-title");
+  if (typeof title === "string") {
+    upcomingDateTitle.textContent = format(date, "MMM d") + " • " + title;
+  } else {
+    upcomingDateTitle.textContent = format(date, "MMM d") + " • " + format(date, "eee");
+  }
+  // TODO some basic logic that checks the div id against an array of events. If true, populate the div with contents.
+  dateModifier.days += 1;
+  upcomingDateDiv.appendChild(upcomingDateTitle);
+
+  const upcomingDateTaskDiv = document.createElement("div");
+  upcomingDateTaskDiv.classList.add("upcoming-task-div");
+
+  const addNewTaskButton = createSVG(16, 16, svgPaths.plus());
+  addNewTaskButton.classList.add("add-new-task-button");
+  const addNewTaskText = document.createElement("p");
+  addNewTaskText.classList.add("add-new-task-text");
+  addNewTaskText.textContent = "Add task";
+  upcomingDateTaskDiv.appendChild(addNewTaskButton);
+  upcomingDateTaskDiv.appendChild(addNewTaskText);
+
+  upcomingDateSlot.appendChild(upcomingDateDiv);
+  upcomingDateSlot.appendChild(upcomingDateTaskDiv);
+
+  return upcomingDateSlot;
 };
 
 // TODO Create scrolling slots
 const scrollDailySlots = () => {
   console.log("Test scroll");
-  const dailyPlannerDiv = document.createElement("div");
-  dailyPlannerDiv.classList.add("upcoming-daily-planner");
-  const dailyTaskTitle = document.createElement("p");
-  dailyTaskTitle.classList.add("upcoming-daily-title");
-  dailyTaskTitle.textContent = "Hello";
-  dailyPlannerDiv.appendChild(dailyTaskTitle);
-  upcomingDaysDiv.appendChild(dailyPlannerDiv);
-  //     //   return dailyPlannerDiv;
+  console.log(window.scrollY);
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  console.log(scrollable);
+  console.log(dateModifier.days);
+  const dailySlotsDiv = createEmptySlot(todaysDate, add(todaysDate, dateModifier));
+  upcomingDaysDiv.appendChild(dailySlotsDiv);
 };
+
+const deadlines = todoList.map((n) => {
+  return {
+    dueDate: n.dueDate,
+    title: n.title,
+    priority: n.priority,
+  };
+});
+
+// deadlines.map((n) => createDailyEntry(n));
 
 export default upcomingDays;
