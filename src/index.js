@@ -1,6 +1,6 @@
 import _ from "lodash";
 import "./style.css";
-import newTodo from "./task-create";
+import newTodo from "./task-create-new";
 import projects from "./projects";
 import display from "./dom";
 

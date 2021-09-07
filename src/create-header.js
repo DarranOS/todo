@@ -2,6 +2,7 @@
 import { default as createSVG, createCircleSVG } from "./create-svg";
 import svgPaths from "./svgPaths";
 import { default as randomColor, randomPastel } from "./random-color";
+import createNewTask from "./task-create-new";
 
 const createHeader = () => {
   const topBar = document.createElement("div");
@@ -50,6 +51,9 @@ const createHeader = () => {
   const plusButton = document.createElement("button");
   plusButton.setAttribute("id", "plus-button");
   plusButton.classList.add("top-bar-button");
+
+  // Event Listeners for Plus Icon.
+  plusButton.addEventListener("click", createNewTask);
 
   // Draws and appends SVGS
   searchButton.appendChild(searchIcon);

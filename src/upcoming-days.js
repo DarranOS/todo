@@ -2,6 +2,7 @@ import { format, add, compareAsc } from "date-fns";
 import { default as createSVG, createCircleSVG } from "./create-svg";
 import svgPaths from "./svgPaths";
 import todoList from "./task-store";
+import createNewTask from "./task-create-new";
 
 const upcomingDaysDiv = document.createElement("div");
 const todaysDate = new Date();
@@ -20,6 +21,8 @@ const dateModifier = {
 const upcomingDays = () => {
   upcomingDaysDiv.setAttribute("id", "upcoming-wrapper");
   upcomingDaysDiv.classList.add("upcoming-wrapper");
+
+  dateModifier.days = 0;
 
   upcomingDaysDiv.appendChild(createTodaySlot());
   upcomingDaysDiv.appendChild(createTomorrowSlot());
@@ -103,22 +106,35 @@ const createUpcomingDateDiv = (title, date) => {
 };
 
 const createAddTask = (date) => {
+  const currentDate = format(date, dateFormater);
   const addTaskDiv = document.createElement("div");
   addTaskDiv.classList.add("add-task-div");
-  addTaskDiv.setAttribute("id", "add_" + format(date, dateFormater));
+  // addTaskDiv.classList.add("add-task-div-hidden");
+
+  addTaskDiv.setAttribute("id", "add_" + currentDate);
 
   const addNewTaskButton = createSVG(16, 16, svgPaths.plus());
   addNewTaskButton.classList.add("add-new-task-button");
+  addNewTaskButton.setAttribute("id", "adb_" + currentDate);
   const addNewTaskText = document.createElement("p");
   addNewTaskText.classList.add("add-new-task-text");
   addNewTaskText.textContent = "Add task";
+  addNewTaskText.setAttribute("id", "adt_" + currentDate);
   addTaskDiv.appendChild(addNewTaskButton);
   addTaskDiv.appendChild(addNewTaskText);
 
-  addTaskDiv.addEventListener("click", (e) => {
-    console.log(e.target);
-  });
+  addTaskDiv.addEventListener("click", (e) => insertNewTaskDiv(e));
   return addTaskDiv;
+};
+
+const insertNewTaskDiv = (e) => {
+  e.stopPropagation();
+
+  const grandParent = e.target.closest(".upcoming-date-slot");
+  console.log(grandParent);
+  const currentSibling = e.target.closest(".upcoming-task-div");
+  console.log(currentSibling);
+  grandParent.insertBefore(createNewTask(grandParent.id.slice(4)), currentSibling);
 };
 
 // Gets called in the check deadline fucntion returned a valid array
@@ -169,7 +185,9 @@ const createDueTask = (deadline) => {
 
   const dueTaskRightTopDiv = document.createElement("div");
   dueTaskRightTopDiv.classList.add("due-task-right-top-div");
-  dueTaskRightTopDiv.textContent = "Icons";
+  dueTaskRightTopDiv.appendChild(createSVG(16, 16, svgPaths.schedule()));
+  dueTaskRightTopDiv.appendChild(createSVG(16, 16, svgPaths.flag()));
+  dueTaskRightTopDiv.appendChild(createSVG(16, 16, svgPaths.comment()));
 
   const dueTaskRightBottomDiv = document.createElement("div");
   dueTaskRightBottomDiv.classList.add("due-task-right-bottom-div");
