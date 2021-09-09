@@ -6,7 +6,7 @@ const createMainView = () => {
   mainView.classList.add("mainview");
 
   mainView.appendChild(upcomingCalendar());
-  mainView.appendChild(upcomingDays());
+  mainView.appendChild(upcomingDays(25));
   return mainView;
 };
 

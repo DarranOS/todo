@@ -11,6 +11,7 @@ import { default as randomColor, randomPastel } from "./random-color";
 const createSidebar = () => {
   const sidebar = document.createElement("div");
   sidebar.classList.add("sidebar");
+  sidebar.setAttribute("id", "sidebar");
 
   const inboxDiv = document.createElement("div");
   inboxDiv.classList.add("side-div");

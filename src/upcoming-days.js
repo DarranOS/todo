@@ -18,16 +18,29 @@ const dateModifier = {
   seconds: 0,
 };
 
-const upcomingDays = () => {
+let title;
+let counter = 0;
+let formatCounter = "";
+
+const upcomingDays = (number) => {
+  counter = 0;
+  formatCounter = "";
+
   upcomingDaysDiv.setAttribute("id", "upcoming-wrapper");
   upcomingDaysDiv.classList.add("upcoming-wrapper");
 
   dateModifier.days = 0;
 
-  upcomingDaysDiv.appendChild(createTodaySlot());
-  upcomingDaysDiv.appendChild(createTomorrowSlot());
-  while (dateModifier.days < 7) {
-    upcomingDaysDiv.appendChild(createDailySlots());
+  while (dateModifier.days < number + 5) {
+    if (dateModifier.days === 0) {
+      title = "Today";
+    } else if (dateModifier.days === 1) {
+      title = "Tomorrow";
+    } else {
+      title = todaysDate;
+    }
+
+    upcomingDaysDiv.appendChild(createDailySlot(title, add(todaysDate, dateModifier)));
   }
 
   window.addEventListener("scroll", scrollDailySlots);
@@ -35,26 +48,14 @@ const upcomingDays = () => {
   return upcomingDaysDiv;
 };
 
-const createTodaySlot = () => {
-  const todaySlotsDiv = createEmptySlot("Today", todaysDate);
-  return todaySlotsDiv;
-};
-
-const createTomorrowSlot = () => {
-  const tomorrowSlotsDiv = createEmptySlot("Tomorrow", add(todaysDate, dateModifier));
-  return tomorrowSlotsDiv;
-};
-
-const createDailySlots = () => {
-  const dailySlotsDiv = createEmptySlot(todaysDate, add(todaysDate, dateModifier));
-  return dailySlotsDiv;
-};
-
-const createEmptySlot = (title, date) => {
+const createDailySlot = (title, date) => {
   const formattedDailyDate = format(date, dateFormater);
   const upcomingDateSlot = document.createElement("div");
+  counter += 1;
+  formatCounter = counter.toString().padStart(4, "0");
+
   upcomingDateSlot.classList.add("upcoming-date-slot");
-  upcomingDateSlot.setAttribute("id", "div_" + formattedDailyDate);
+  upcomingDateSlot.setAttribute("id", "div_" + formatCounter + "_" + formattedDailyDate);
 
   upcomingDateSlot.appendChild(createUpcomingDateDiv(title, date));
 
@@ -78,7 +79,7 @@ const createEmptySlot = (title, date) => {
 
 const scrollDailySlots = () => {
   const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-  const dailySlotsDiv = createEmptySlot(todaysDate, add(todaysDate, dateModifier));
+  const dailySlotsDiv = createDailySlot(todaysDate, add(todaysDate, dateModifier));
   upcomingDaysDiv.appendChild(dailySlotsDiv);
 };
 
@@ -109,7 +110,6 @@ const createAddTask = (date) => {
   const currentDate = format(date, dateFormater);
   const addTaskDiv = document.createElement("div");
   addTaskDiv.classList.add("add-task-div");
-  // addTaskDiv.classList.add("add-task-div-hidden");
 
   addTaskDiv.setAttribute("id", "add_" + currentDate);
 
@@ -123,23 +123,25 @@ const createAddTask = (date) => {
   addTaskDiv.appendChild(addNewTaskButton);
   addTaskDiv.appendChild(addNewTaskText);
 
-  addTaskDiv.addEventListener("click", (e) => insertNewTaskDiv(e));
+  addTaskDiv.addEventListener("click", (e) => {
+    insertNewTaskDiv(e);
+  });
   return addTaskDiv;
 };
 
 const insertNewTaskDiv = (e) => {
+  // Finds the correct location to place the new Task Div by checking the nearest Calendar date slot ("grandparent") to the clicked event element (e.target)
   e.stopPropagation();
-
+  console.log("Trigger 0");
   const grandParent = e.target.closest(".upcoming-date-slot");
-  console.log(grandParent);
   const currentSibling = e.target.closest(".upcoming-task-div");
-  console.log(currentSibling);
   grandParent.insertBefore(createNewTask(grandParent.id.slice(4)), currentSibling);
+  console.log("Trigger 1");
 };
 
-// Gets called in the check deadline fucntion returned a valid array
-
 const createDueTask = (deadline) => {
+  // Gets called in the check deadline function returned a valid array
+
   const dueTaskDiv = document.createElement("div");
   dueTaskDiv.classList.add("due-task-div");
 

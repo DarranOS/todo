@@ -3,6 +3,7 @@ import { default as createSVG, createCircleSVG } from "./create-svg";
 import svgPaths from "./svgPaths";
 import { default as randomColor, randomPastel } from "./random-color";
 import createNewTask from "./task-create-new";
+import toggleSidebarDisplay from "./toggle-sidebar";
 
 const createHeader = () => {
   const topBar = document.createElement("div");
@@ -53,6 +54,7 @@ const createHeader = () => {
   plusButton.classList.add("top-bar-button");
 
   // Event Listeners for Plus Icon.
+  menuButton.addEventListener("click", toggleSidebarDisplay);
   plusButton.addEventListener("click", createNewTask);
 
   // Draws and appends SVGS

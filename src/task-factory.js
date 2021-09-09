@@ -2,22 +2,22 @@
 // * Contains a title, description, due date, project, priority, with optional notes and checklists
 import todoList from "./task-store";
 
-const NewTodo = ({ title, desc }) => {
-  const toDo = {
-    id: new Date(),
-    title,
-    desc,
-    dueDate: "date due",
-    priority: "5 Star",
-    project: "project",
-    label: "tags",
-    setPriority(newPriority) {
-      this.priority = newPriority;
-    },
-    setLabel(newLabel) {
-      this.priority = newLabel;
-    },
-  };
-};
+class NewTodo {
+  constructor({ todoEntry }) {
+    // this.id = entry.id;
+    this.title = todoEntry.title;
+    this.desc = todoEntry.desc;
+    this.dueDate = todoEntry.dueDate;
+    // this.priority = entry.priority;
+    // this.project = entry.project;
+    // this.label = entry.label;
+  }
+}
+
+// this.setPriority(newPriority) {
+//   this.priority = newPriority;
+// },
+// this. setLabel(newLabel) {
+//   this.priority = newLabel;
 
 export default NewTodo;

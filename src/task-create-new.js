@@ -1,12 +1,14 @@
-import todoList from "./task-factory";
-import newTodo from "./task-factory";
+import todoList from "./task-store";
+import NewTodo from "./task-factory";
 import createSVG from "./create-svg";
 import svgPaths from "./svgPaths";
 import refreshUpcomingDays from "./upcoming-days-refresh";
+import upComingDays from "./upcoming-days";
 
-const createNewTask = (date) => {
-  console.log(`Create new task for ${date}.`);
+const createNewTask = (dateId) => {
+  hideAddButtons();
 
+  console.log("Trigger 2");
   const newToDoContainer = document.createElement("div");
   newToDoContainer.classList.add("new-todo-container");
   newToDoContainer.setAttribute("id", "currentNewTodo");
@@ -86,9 +88,11 @@ const createNewTask = (date) => {
   //-----------------Save & Cancel Button Event Listeners---------------------------//
 
   saveButton.addEventListener("click", () => {
-    forwardTodo();
+    forwardTodo(newToDoContainer, dateId);
   });
-  cancelButton.addEventListener("click", () => cancelTodo(newToDoContainer));
+  cancelButton.addEventListener("click", () =>
+    cancelTodo(newToDoContainer, dateId.slice(0, 4))
+  );
 
   newToDoContainer.appendChild(todoForm);
   newToDoContainer.appendChild(toDoContainerButtonsDiv);
@@ -96,37 +100,53 @@ const createNewTask = (date) => {
   return newToDoContainer;
 };
 
-const forwardTodo = () => {
+const forwardTodo = (container, number) => {
   console.log("Forwarding!");
-  // let todoEntry = {
+  console.log(number);
 
-  //   title: document.getElementById("todo-title").value || "Test",
-  //   desc: document.getElementById("todo-desc").value || "Test",
-  //   dueDate: document.getElementById("pages").value || "Test",
-  //   priority: document.getElementById("status").value || "Not Read",
-  //   project: timestamp,
-  //   label: timestamp,
-  //  };
+  let todoEntry = {
+    title: document.getElementById("todo-title").value || "Test",
+    desc: document.getElementById("todo-desc").value || "Test",
+    dueDate: number.slice(5),
+    // priority: "3",
+    // project: "My Project",
+    // label: "My Label",
+  };
 
-  // let entry = new NewTodo ({ todoEntry });
+  const passedTodo = new NewTodo({ todoEntry });
 
-  // Pass Object through to the store.
+  console.dir(passedTodo);
+  todoList.push(passedTodo);
+  console.dir(todoList);
 
-  // Render Day View.
+  while (container.hasChildNodes()) {
+    container.removeChild(container.childNodes[0]);
+  }
+
+  refreshUpcomingDays(Number(number.slice(0, 4)));
 };
 
-const cancelTodo = (container) => {
+const cancelTodo = (container, number) => {
   console.log(`Refreshing 1!`);
   while (container.hasChildNodes()) {
     container.removeChild(container.childNodes[0]);
   }
-  refreshUpcomingDays();
+
+  refreshUpcomingDays(Number(number));
 };
 
-const toggleAddButtons = () => {
+const unhideAddButtons = () => {
   const addDivs = document.querySelectorAll(".add-task-div");
-  console.log(addDivs);
-  addDivs.forEach((div) => div.classList.toggle("add-task-div-hidden"));
+  console.log("Unhiding");
+  console.dir(addDivs);
+  addDivs.forEach((div) => (div.style.display = "flex"));
+};
+
+const hideAddButtons = () => {
+  const addDivs = document.querySelectorAll(".add-task-div");
+  console.log("Hiding");
+  console.dir(addDivs);
+  addDivs.forEach((div) => (div.style.display = "none"));
 };
 
 export default createNewTask;

@@ -24,6 +24,10 @@
 
 .top-bar {
   height: 44px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -185,13 +189,17 @@
 /*------------Sidebar -----------*/
 
 .sidebar {
-  /* display: flex;
-  flex-direction: row; */
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 44px;
+  left: 0px;
   background-color: #fafafa;
   height: 100%;
   width: 305px;
   padding-top: 30px;
   padding-left: 35px;
+  transition: left 0.2s ease-in;
 }
 
 .side-div {
@@ -245,6 +253,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 44px;
   /* margin: 1vh 0.5vw 1vh 0.5vw; */
   width: 100%;
   /* padding: 2vh 1vw 2vh 1vw; */
@@ -671,8 +680,8 @@
 .new-todo-div-bottom-left {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  width: 20%;
+  justify-content: flex-start;
+  width: 50%;
 }
 
 .new-todo-div-bottom-left button {
@@ -691,12 +700,15 @@
   transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.new-todo-div-bottom-left button {
+.new-todo-div-bottom-left button:nth-child(2) {
   margin: 0 0 0 10px;
 }
+/* .new-todo-div-bottom-left button {
+  margin: 0 0 0 10px;
+} */
 
 .new-todo-div-bottom-left p {
-  margin: 0 0 0 10px;
+  margin: 0 0 0 5px;
 }
 
 .new-todo-div-bottom-left svg {
